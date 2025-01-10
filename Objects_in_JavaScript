@@ -1,171 +1,141 @@
-Here's your revised content with **bold headers**:
+OBJECT IN Javascript
 
----
+Object is key value pairs where keys are the properties , typically stringa(or symboles), values can be any data type , functions or other object
 
-**OBJECT IN JavaScript**
-
-**Object** is key-value pairs where keys are the properties, typically strings (or symbols), and values can be any data type, functions, or other objects.
-
----
-
-### **Creating an Object**
-
-1. **Using Normal or Object Literal**  
-```javascript
+Creating an Object:
+1-> using normal or object literal
 let person = {
-    name: "any_one",
-    age: 22,
-    isStudent: false,
-    greet: function () {
-        console.log("hello my name is " + this.name);
-    },
-};
+	name:”any_one”,
+	Age:”22”,
+	isStudent : false,
+	Greet : function(){
+		console.log(“hello my name is “ + this.name);
+	}
+}
 console.log(person);
-person.greet();
-```
+person.Greet;
 
-2. **Using `new Object()` Constructor**  
-```javascript
-let car = new Object();
-car.brand = "BMW";
-car.model = "DMZ1";
-car.driver = function () {
-    console.log("the car is driving");
-};
+2-> using name object() Constructor
+let  car = new Object();
+car.brand = “BMW”,
+car.model = “DMZ1”,
+car.driver = function(){
+	console.log(“the car is driving”)     
+	}
 console.log(car.brand);
-```
-> **Note**: When a function is called inside an object, it is considered encapsulation because the user can't see what is inside that function without authentication.
 
-3. **Using `Object.create()` - for Prototype Inheritance**  
-```javascript
-let animal = {
-    type: "mammal",
-    speak: function () {
-        console.log("I am a " + this.type);
-    },
+Note: when an function is called inside an object then it is encapsulation as the user can't see what is inside that function without authentication
+
+3=> using Object.create() - for prototype of inheritance
+let  animal = {
+	type:”mammal”,
+	speak : function(){
+		console.log(“i am a “ + this.type);
+}
 };
 let dog = Object.create(animal);
-dog.type = "bear";
-dog.speak();
-```
+dog.type = “bear”
+dog.speak()
 
----
 
-### **Accessing Object Properties**
+Accessing Object Properties
 
-1. **Dot Notation**  
-   ```javascript
-   console.log(person.name); // any_one
-   ```
+Dot notation
+console.log(person.name); //xyz
+Bracket Notation
+console.log(person[“name”]); // XYZ
 
-2. **Bracket Notation**  
-   ```javascript
-   console.log(person["name"]); // any_one
-   ```
 
----
+Modifying an object
 
-### **Modifying an Object**
+1.Add a property
+	Person.hobby = “reading”;
+2.Update a property
+	Person.age = 31;
+3.delete a property
+	Delete person.isStudent;
 
-1. **Add a Property**  
-   ```javascript
-   person.hobby = "reading";
-   ```
+Object in functional Parameters
 
-2. **Update a Property**  
-   ```javascript
-   person.age = 31;
-   ```
-
-3. **Delete a Property**  
-   ```javascript
-   delete person.isStudent;
-   ```
-
----
-
-### **Object in Function Parameters**
-
-```javascript
-function introduce({ name, age }) {
-    console.log(`Hi, I’m ${name} and my age is ${age}`);
+function introduce({name, age}){
+console.log(`Hi , I’m ${name} and my age is ${age}`);
 }
-let person = { name: "Jane", age: 23 };
-introduce(person);
-```
+Let person = { name : “jane”, age:23};
+introduce(person)
 
-> **Note**: Objects can replace functions to solve examples like increment, decrement, and reset.
+Note: Object can be work in place of function to solve the examples of increment decrement and reset
 
----
+Let counters = {
+	Count:0,
+	Increment: ()=>{
+		this.count++;
+		return count;
+	},
+	Decrement:()=>{
+		this.count–;
+		return count;
+	},
+	Reset:()=>{
+	This.count ==0;
+	return count
+},
+Display : ()=>{
+	console.log(“current value “ + this.count)
+}
+counters.Display();
+console.log(counters.Increment());
+console.log(counters.Increment())
+console.log(counters.Decrement())
+console.log(counters.Increment())
+console.log(counters.Reset())
+console.log(counters.Increment())
+	
 
-### **Counters Example**
-```javascript
-let counters = {
-    count: 0,
-    increment: function () {
-        this.count++;
-        return this.count;
-    },
-    decrement: function () {
-        this.count--;
-        return this.count;
-    },
-    reset: function () {
-        this.count = 0;
-        return this.count;
-    },
-    display: function () {
-        console.log("current value " + this.count);
-    },
-};
-counters.display();
-console.log(counters.increment());
-console.log(counters.increment());
-console.log(counters.decrement());
-console.log(counters.increment());
-console.log(counters.reset());
-console.log(counters.increment());
-```
+Q3-> Show how a deep copy of an object can be done
+A deep copy creates a new object that is entirely independent of the original object, even for nested properties. 
+1. Using structuredClone() (Modern & Recommended)
+const Original = {name:”apple”, price:{perKg:”240 Rupees”}}
+const DeepCopy = structuredClone(Original);
 
----
+DeepCopy.price.perKg = “ 280 Rupees”
+console.log(Original.price.perKg)
+console.log(DeepCopy.price.perKg)
 
-### **Q3: Deep Copy of an Object**
+Output: 240 Rupees
+280 Rupees
 
-A **deep copy** creates a new object that is entirely independent of the original object, even for nested properties.
+2. Using JSON.parse(JSON.stringify())
+This is a common method but has limitations, such as losing functions, undefined, Symbol, or circular references.
 
-1. **Using `structuredClone()` (Modern & Recommended)**  
-   ```javascript
-   const original = { name: "apple", price: { perKg: "240 Rupees" } };
-   const deepCopy = structuredClone(original);
+const Original = {name:”apple”, price:{perKg:”240 Rupees”}}
+const DeepCopy =JSON.parse(JSON.stringify(Original));
 
-   deepCopy.price.perKg = "280 Rupees";
-   console.log(original.price.perKg); // 240 Rupees
-   console.log(deepCopy.price.perKg); // 280 Rupees
-   ```
+DeepCopy.price.perKg = “ 280 Rupees”
+console.log(Original.price.perKg)
+console.log(DeepCopy.price.perKg)
 
-2. **Using `JSON.parse(JSON.stringify())`**  
-   > This method has limitations, such as losing functions, `undefined`, `Symbol`, or circular references.  
+Output: 240 Rupees
+280 Rupees
 
-   ```javascript
-   const original = { name: "apple", price: { perKg: "240 Rupees" } };
-   const deepCopy = JSON.parse(JSON.stringify(original));
 
-   deepCopy.price.perKg = "280 Rupees";
-   console.log(original.price.perKg); // 240 Rupees
-   console.log(deepCopy.price.perKg); // 280 Rupees
-   ```
 
-3. **Using a Library (e.g., Lodash)**  
-   For complex objects or when `structuredClone` isn't available:  
-   ```javascript
-   import _ from "lodash";
 
-   const original = { name: "apple", price: { perKg: "240 Rupees" } };
-   const deepCopy = _.cloneDeep(original);
 
-   deepCopy.price.perKg = "280 Rupees";
-   console.log(original.price.perKg); // 240 Rupees
-   console.log(deepCopy.price.perKg); // 280 Rupees
-   ```
+3. Using a Library (e.g., Lodash)
+For complex objects or when structuredClone isn't available:
+Import _ from “lodash”;
+const Original = {name:”apple”, price:{perKg:”240 Rupees”}}
+const DeepCopy =_.clone(Original);
 
----
+DeepCopy.price.perKg = “ 280 Rupees”
+console.log(Original.price.perKg)
+console.log(DeepCopy.price.perKg)
+
+Output: 240 Rupees
+280 Rupees
+
+
+
+
+
+
