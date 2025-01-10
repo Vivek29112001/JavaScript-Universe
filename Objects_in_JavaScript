@@ -1,0 +1,171 @@
+Here's your revised content with **bold headers**:
+
+---
+
+**OBJECT IN JavaScript**
+
+**Object** is key-value pairs where keys are the properties, typically strings (or symbols), and values can be any data type, functions, or other objects.
+
+---
+
+### **Creating an Object**
+
+1. **Using Normal or Object Literal**  
+```javascript
+let person = {
+    name: "any_one",
+    age: 22,
+    isStudent: false,
+    greet: function () {
+        console.log("hello my name is " + this.name);
+    },
+};
+console.log(person);
+person.greet();
+```
+
+2. **Using `new Object()` Constructor**  
+```javascript
+let car = new Object();
+car.brand = "BMW";
+car.model = "DMZ1";
+car.driver = function () {
+    console.log("the car is driving");
+};
+console.log(car.brand);
+```
+> **Note**: When a function is called inside an object, it is considered encapsulation because the user can't see what is inside that function without authentication.
+
+3. **Using `Object.create()` - for Prototype Inheritance**  
+```javascript
+let animal = {
+    type: "mammal",
+    speak: function () {
+        console.log("I am a " + this.type);
+    },
+};
+let dog = Object.create(animal);
+dog.type = "bear";
+dog.speak();
+```
+
+---
+
+### **Accessing Object Properties**
+
+1. **Dot Notation**  
+   ```javascript
+   console.log(person.name); // any_one
+   ```
+
+2. **Bracket Notation**  
+   ```javascript
+   console.log(person["name"]); // any_one
+   ```
+
+---
+
+### **Modifying an Object**
+
+1. **Add a Property**  
+   ```javascript
+   person.hobby = "reading";
+   ```
+
+2. **Update a Property**  
+   ```javascript
+   person.age = 31;
+   ```
+
+3. **Delete a Property**  
+   ```javascript
+   delete person.isStudent;
+   ```
+
+---
+
+### **Object in Function Parameters**
+
+```javascript
+function introduce({ name, age }) {
+    console.log(`Hi, I’m ${name} and my age is ${age}`);
+}
+let person = { name: "Jane", age: 23 };
+introduce(person);
+```
+
+> **Note**: Objects can replace functions to solve examples like increment, decrement, and reset.
+
+---
+
+### **Counters Example**
+```javascript
+let counters = {
+    count: 0,
+    increment: function () {
+        this.count++;
+        return this.count;
+    },
+    decrement: function () {
+        this.count--;
+        return this.count;
+    },
+    reset: function () {
+        this.count = 0;
+        return this.count;
+    },
+    display: function () {
+        console.log("current value " + this.count);
+    },
+};
+counters.display();
+console.log(counters.increment());
+console.log(counters.increment());
+console.log(counters.decrement());
+console.log(counters.increment());
+console.log(counters.reset());
+console.log(counters.increment());
+```
+
+---
+
+### **Q3: Deep Copy of an Object**
+
+A **deep copy** creates a new object that is entirely independent of the original object, even for nested properties.
+
+1. **Using `structuredClone()` (Modern & Recommended)**  
+   ```javascript
+   const original = { name: "apple", price: { perKg: "240 Rupees" } };
+   const deepCopy = structuredClone(original);
+
+   deepCopy.price.perKg = "280 Rupees";
+   console.log(original.price.perKg); // 240 Rupees
+   console.log(deepCopy.price.perKg); // 280 Rupees
+   ```
+
+2. **Using `JSON.parse(JSON.stringify())`**  
+   > This method has limitations, such as losing functions, `undefined`, `Symbol`, or circular references.  
+
+   ```javascript
+   const original = { name: "apple", price: { perKg: "240 Rupees" } };
+   const deepCopy = JSON.parse(JSON.stringify(original));
+
+   deepCopy.price.perKg = "280 Rupees";
+   console.log(original.price.perKg); // 240 Rupees
+   console.log(deepCopy.price.perKg); // 280 Rupees
+   ```
+
+3. **Using a Library (e.g., Lodash)**  
+   For complex objects or when `structuredClone` isn't available:  
+   ```javascript
+   import _ from "lodash";
+
+   const original = { name: "apple", price: { perKg: "240 Rupees" } };
+   const deepCopy = _.cloneDeep(original);
+
+   deepCopy.price.perKg = "280 Rupees";
+   console.log(original.price.perKg); // 240 Rupees
+   console.log(deepCopy.price.perKg); // 280 Rupees
+   ```
+
+---
